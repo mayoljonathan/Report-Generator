@@ -1,0 +1,47 @@
+.login-container{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    min-height: 100vh;
+    position: relative;
+    align-items: center;
+}
+.login-card{
+    height: 300px;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+    min-height: 0;
+    min-width: 380px;
+    padding: 48px;
+}
+.login-progress-bar{
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.app-title{
+    margin-top: 0 !important;
+}
+.login-form{
+    display: inline-grid;
+    width: 100%;
+}
+
+.login-navigate-adminPanel{
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 48px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+}

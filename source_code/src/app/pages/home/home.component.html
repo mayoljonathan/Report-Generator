@@ -1,0 +1,181 @@
+<mat-toolbar class="toolbar">
+  <button mat-icon-button (click)="menuOpen = !menuOpen" class="menu">
+    <mat-icon aria-label="Menu">menu</mat-icon>
+  </button>
+
+  <img src="./assets/images/favicon.ico" alt="" class="app-logo">
+  <div class="app-title-text">ShowcaseIT - Report Generator <span style="font-size:14px">v0.1</span></div> 
+
+  <button class="admin-top-right-container" mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="tokenService?.admin; else loadingAdminData">
+    <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.png'" alt="Admin Photo" class="admin-photo-s">
+  </button>
+  <mat-menu #appMenu="matMenu">
+    <div class="admin-data-container">
+      <div class="text-center">
+        <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.png'" alt="Admin Photo" class="admin-photo-m">
+      </div>
+      <div><b>{{ tokenService?.admin?.name}}</b></div>
+      <div>{{ tokenService?.admin?.email}}</div>
+    </div>
+    <hr>
+    <button mat-menu-item (click)="goToAdminPanel()"> Go to ShowcaseIT - Admin Panel </button>
+    <button mat-menu-item (click)="signOut()"> Sign out </button>
+  </mat-menu>
+
+  <ng-template #loadingAdminData>
+    <div class="admin-top-right-container">
+      <span style="font-size: 13px">Loading admin</span>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </ng-template>
+
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <!-- Sidenav -->
+  <mat-sidenav mode="side" [opened]="menuOpen">
+    <div class="generator-form">
+      <p>What do you want to generate?</p>
+      <button class="full-width" mat-button (click)="generateReport(0)">Highest Rated Apps</button>
+      <button class="full-width" mat-button (click)="generateReport(1)">Most Viewed Apps</button>
+      <button class="full-width" mat-button (click)="generateReport(2)">Most Downloaded Apps</button>
+      <button class="full-width" mat-button (click)="generateReport(3)">Latest Search Queries</button>
+
+      <!-- Entity -->
+      <!-- <div class="entity">
+        <p>What entity do you want to generate?</p>
+        <mat-radio-group [(ngModel)]="selectedEntity">
+          <mat-radio-button value="0">Users</mat-radio-button>
+          <mat-radio-button value="1">Applications</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+
+      <!-- Specification -->
+      <!-- <div class="specification">
+        <p>Do you want to search for a specific {{selectedEntity == 0 ? 'user':'app'}}?</p>
+        <mat-radio-group [(ngModel)]="selectedSpecification">
+          <mat-radio-button value="1">Yes, I'll search for a specific {{selectedEntity == 0 ? 'user':'app'}}</mat-radio-button>
+          <mat-radio-button value="0">No, just get all {{selectedEntity == 0 ? 'users':'apps'}}</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+
+      <!-- If Specific -->
+      <!-- <div class="specific_entity">
+        <form>
+          <mat-form-field>
+            <input matInput placeholder="User's name" aria-label="User's name" [formControl]="userSelectionControl">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+                <span>{{ state.name }}</span> |
+                <small>Population: {{state.population}}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        
+        </form>
+      </div> -->
+
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="first-load-text" *ngIf="isLoading == null">Please choose what to generate</div>
+      <div class="spinner-container" *ngIf="isLoading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+      
+      <div *ngIf="isLoading !== null && !isLoading">
+        <div class="action-container">
+          <div class="generated-title">{{ generatedTitle }}</div>
+          <!-- <button class="fit-button" mat-raised-button (click)="printReport()">Print</button> -->
+          <div>
+            <button mat-icon-button (click)="printReport()" matTooltip="Print">
+              <mat-icon aria-label="Print">print</mat-icon>
+            </button>
+            <button mat-icon-button (click)="refreshReport()" matTooltip="Refresh">
+              <mat-icon aria-label="Refresh">refresh</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div id="print-section">
+          <!-- FOR MOST DOWNLOADED APPS -->
+          <mat-tab-group *ngIf="generatedReport === 2" #tabGroup selectedIndex="selectedTabIndex" (selectedTabChange)="onTabChange(tabGroup.selectedIndex)">
+            <mat-tab label="Overall"></mat-tab>
+            <mat-tab label="Android"></mat-tab>
+            <mat-tab label="Desktop"></mat-tab>
+            <mat-tab label="Source Code"></mat-tab>
+          </mat-tab-group>
+
+          <mat-table #table [dataSource]="dataSource">
+
+            <ng-container *ngFor="let col of displayedColumns;" [matColumnDef]="col">
+              <mat-header-cell *matHeaderCellDef> {{col}} </mat-header-cell>
+              <!-- HIGHEST RATED APPS -->
+              <ng-container *ngIf="generatedReport === 0">
+                <mat-cell *matCellDef="let row; index as i"> 
+                  <div *ngIf="col==='No.'">{{i+1}} </div>
+                  <div *ngIf="col==='App UID'">{{row.appData.uid}}</div>
+                  <div *ngIf="col==='Title'">{{row.appData.title}}</div>
+                  <div *ngIf="col==='No. of Reviews'">{{row.totalReviews}}</div>
+                  <div *ngIf="col==='Stars'">{{row.stars.toFixed(1)}}</div>
+                </mat-cell>
+              </ng-container>
+
+              <!-- MOST VIEWED APPS -->
+              <ng-container *ngIf="generatedReport === 1">
+                <mat-cell *matCellDef="let row; index as i"> 
+                  <div *ngIf="col==='No.'">{{i+1}} </div>
+                  <div *ngIf="col==='App UID'">{{row.appData.uid}}</div>
+                  <div *ngIf="col==='Title'">{{row.appData.title}}</div>
+                  <div *ngIf="col==='Views'">{{row.viewCount}}</div>
+                </mat-cell>
+              </ng-container>
+
+              <!-- MOST DOWNLOADED APPS -->
+              <ng-container *ngIf="generatedReport === 2">
+                <mat-cell *matCellDef="let row; index as i"> 
+                  <div *ngIf="col==='No.'">{{i+1}} </div>
+
+                  <div *ngIf="col==='App UID'">{{row.appData.uid}}</div>
+                  <div *ngIf="col==='Title'">{{row.appData.title}}</div>
+                  <!-- Overall -->
+                  <div *ngIf="col==='Downloads' && selectedTabIndex === 0">{{row.downloadsObj.totalDownloads}}</div>
+                  <!-- Android -->
+                  <div *ngIf="col==='Downloads' && selectedTabIndex === 1">{{row.downloadsObj.android}}</div>
+                  <!-- Desktop -->
+                  <div *ngIf="col==='Downloads' && selectedTabIndex === 2">{{row.downloadsObj.desktop}}</div>
+                  <!-- Source Code -->
+                  <div *ngIf="col==='Downloads' && selectedTabIndex === 3">{{row.downloadsObj.source_code}}</div>
+                </mat-cell>
+              </ng-container>
+
+              <!-- LATEST SEARCH QUERIES -->
+              <ng-container *ngIf="generatedReport === 3">
+                <mat-cell *matCellDef="let row; index as i"> 
+                  <div *ngIf="col==='No.'">{{i+1}} </div>
+                  <div *ngIf="col==='Query'">{{row.query}}</div>
+                  <div *ngIf="col==='Time'">{{row.timestamp | toDateAndTime}}</div>
+                </mat-cell>
+              </ng-container>
+
+
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+        </div>
+      </div>
+      
+    </div>
+  </mat-sidenav-content>
+  
+</mat-sidenav-container>
+
+  

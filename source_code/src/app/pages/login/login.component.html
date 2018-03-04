@@ -1,0 +1,27 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-progress-bar class="progress-bar login-progress-bar" mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <h2 class="app-title text-center">ShowcaseIT - Report Generator</h2>
+
+    <div class="login-form">
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="admin.email" [disabled]="isLoading" (keyup.enter)="signIn()">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="admin.password" placeholder="Password" [disabled]="isLoading" (keyup.enter)="signIn()">
+        <button *ngIf="admin.password != ''" (click)="hidePassword = !hidePassword" matSuffix mat-icon-button aria-label="Show/Hide" [matTooltip]="hidePassword ? 'Show':'Hide'">
+          <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    
+    <div class="text-right">
+      <button class="fit-button" color="primary" mat-raised-button (click)="signIn()" [disabled]="isLoading">Sign In</button>
+    </div>
+ 
+    <div class="login-navigate-adminPanel">
+      <button class="fit-button" mat-raised-button (click)="goToAdminPanel()">Go to ShowcaseIT - Admin Panel</button>
+    </div>
+
+  </mat-card>
+</div>

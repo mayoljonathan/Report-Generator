@@ -1,0 +1,67 @@
+@import '../../../sass/_variables.scss';
+
+.app-logo{
+    width: 32px;
+    height: 32px;
+}
+.app-title-text{
+    margin: 8px;
+}
+.admin-photo-s{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.admin-photo-m{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+.admin-top-right-container{
+    position: absolute;
+    right: 0;
+    margin-right: 16px;
+}
+
+.admin-data-container{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+// Inside Sidenav
+.generator-form{
+    padding: 16px;
+}
+
+p{
+    font-weight: bold;
+}
+
+.first-load-text,
+.spinner-container{
+    height: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+
+.action-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+// 1st MAT HEADER, and MAT CELL = No.
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+    flex: 0 0 5%;
+}
+
+
+// Temporary, change color for the spinner
+/deep/ .mat-progress-spinner circle, /deep/ .mat-spinner circle {
+    stroke: $primary-color;
+}

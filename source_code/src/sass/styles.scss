@@ -1,0 +1,104 @@
+// https://scotch.io/tutorials/using-sass-with-the-angular-cli
+
+@import './variables';
+@import './mixins';
+
+*{
+    font-family: 'Noto Sans', sans-serif;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+}
+
+.toolbar{
+    background-color: $primary-color-dark;
+    color: $primary-color-text;
+    font-size: 20px;
+    position: fixed; // stick it to the top
+    top: 0;
+    z-index: 2;
+}
+
+mat-sidenav-container{
+    margin-top: 64px;
+    
+    mat-sidenav{
+        width: 400px;
+        border-right: 1px solid $divider-color;
+        margin-top: 64px;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+    }
+
+    .container{
+        max-width: 1024px;
+        margin: auto;
+        padding: 16px;
+    }
+    
+    .footer{
+        padding: 16px;
+        text-align: center;
+    }
+}
+
+
+
+// MEDIA QUERIES
+@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+
+@media (max-width: 600px){
+    mat-sidenav-container,
+    mat-sidenav {
+        margin-top: 56px !important;
+    }
+}
+@media (max-width: 800px){
+    .container{
+        padding: 0px 0px 16px;
+    }
+}
+
+// HELPERS
+.flex-hv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.progress-bar{
+    position: fixed !important;
+    z-index: 1;
+}
+
+.fit-button{
+    width: fit-content;
+}
+.full-width{
+    width: 100%;
+}
+
+.spacer-l{
+    margin-top: 48px;
+}
+
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}

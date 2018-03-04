@@ -7,12 +7,12 @@
   <div class="app-title-text">ShowcaseIT - Report Generator <span style="font-size:14px">v0.1</span></div> 
 
   <button class="admin-top-right-container" mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="tokenService?.admin; else loadingAdminData">
-    <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.png'" alt="Admin Photo" class="admin-photo-s">
+    <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.jpg'" alt="Admin Photo" class="admin-photo-s">
   </button>
   <mat-menu #appMenu="matMenu">
     <div class="admin-data-container">
       <div class="text-center">
-        <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.png'" alt="Admin Photo" class="admin-photo-m">
+        <img [src]="tokenService?.admin?.photoURL || './assets/images/user_placeholder.jpg'" alt="Admin Photo" class="admin-photo-m">
       </div>
       <div><b>{{ tokenService?.admin?.name}}</b></div>
       <div>{{ tokenService?.admin?.email}}</div>

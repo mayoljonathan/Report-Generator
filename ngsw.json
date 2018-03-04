@@ -1,0 +1,76 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/index.html",
+        "/inline.cd71fea5ab5f2c3241d3.bundle.js",
+        "/main.c1c2dc1d76692a96243e.bundle.js",
+        "/polyfills.abdf53ca655716e505e0.bundle.js",
+        "/styles.ac022ea9adcd6304936a.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/images/favicon-144x144.png",
+        "/assets/images/favicon-196x196.png",
+        "/assets/images/favicon-48x48.ico",
+        "/assets/images/favicon-512x512.png",
+        "/assets/images/favicon-96x96.png",
+        "/assets/images/favicon.ico",
+        "/assets/images/image-placeholder.jpg",
+        "/assets/images/no-image-available.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-freshness",
+      "patterns": [
+        "\\/new"
+      ],
+      "strategy": "freshness",
+      "maxSize": 100,
+      "maxAge": 3600000,
+      "timeoutMs": 10000,
+      "version": 1
+    },
+    {
+      "name": "api-performance",
+      "patterns": [
+        "\\/",
+        "\\/jobs",
+        "\\/show",
+        "\\/ask"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/inline.cd71fea5ab5f2c3241d3.bundle.js": "6765f4d2b3701a685601f4c500b98e122044b9ac",
+    "/assets/images/favicon-144x144.png": "1a6c11cca8f5f6c17ad474d94b3161e58172ef51",
+    "/main.c1c2dc1d76692a96243e.bundle.js": "728dadd177d86c4e3f41382342d4761f23426ca1",
+    "/assets/images/favicon-196x196.png": "2d1be654c0c43b02baf94f31fef57870b9874ed2",
+    "/polyfills.abdf53ca655716e505e0.bundle.js": "b838d2e8138f4c1dfbf35e40a68f6819bcc25a48",
+    "/assets/images/favicon-48x48.ico": "5f34170785806db08017b1424783359ecf729d9d",
+    "/styles.ac022ea9adcd6304936a.bundle.css": "d2d34eba5f05a3640edd2c2edb0d1cb7fcc639c5",
+    "/assets/images/favicon-512x512.png": "663f84facc709c813b23717afd1d460c53c234d1",
+    "/index.html": "f9cd615d241636fab9899eb344d9650610dce957",
+    "/assets/images/favicon-96x96.png": "161ffdd8a95141383ea4c56bda6a901b3c6ff5bc",
+    "/assets/images/favicon.ico": "46483b197ecb12c574cb77c00cf76ebb3c1a89e5",
+    "/assets/images/image-placeholder.jpg": "a6e56b609765e4a96622a03b5cf3cdf86b005d03",
+    "/assets/images/no-image-available.jpg": "66d37ad78134363ce1353531afd4a7e280741a51"
+  }
+}
